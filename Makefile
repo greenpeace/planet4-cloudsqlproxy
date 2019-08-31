@@ -56,9 +56,10 @@ endif
 	-kubectl create namespace $(NAMESPACE)
 	helm repo add rimusz https://charts.rimusz.net
 	helm install -n $(RELEASE) $(CHART_NAME) --version $(CHART_VERSION) --namespace $(NAMESPACE)
-	helm upgrade --install --force --wait $(RELEASE) \
+	@helm upgrade --install --force --wait $(RELEASE) \
 		--namespace=$(NAMESPACE) \
 		--version $(CHART_VERSION) \
+		--set serviceAccountKey=$(CLOUDSQL_SERVICE_KEY) \
 		-f values.yaml \
 		-f env/prod/values.yaml \
 		$(CHART_NAME)
