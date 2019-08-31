@@ -7,8 +7,8 @@ CHART_NAME := rimusz/gcloud-sqlproxy
 CHART_VERSION ?= 0.14.1
 
 DEV_CLUSTER ?= p4-development
-DEV_PROJECT ?= jendevops1
-DEV_ZONE ?= australia-southeast1-c
+DEV_PROJECT ?= planet-4-151612
+DEV_ZONE ?= us-central1-a
 
 
 ifndef CLOUD_SERVICE_KEY
@@ -16,9 +16,9 @@ $(error CLOUD_SERVICE_KEY unset)
 endif
 CLOUDSQL_SERVICE_KEY := $(shell echo "$CLOUD_SERVICE_KEY" | openssl enc -base64 -d)
 
-#PROD_CLUSTER ?= planet4-production
-#PROD_PROJECT ?= planet4-production
-#PROD_ZONE ?= us-central1-a
+PROD_CLUSTER ?= planet4-production
+PROD_PROJECT ?= planet4-production
+PROD_ZONE ?= us-central1-a
 
 .DEFAULT_TARGET: status
 
