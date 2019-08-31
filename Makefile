@@ -14,7 +14,6 @@ DEV_ZONE ?= us-central1-a
 ifndef CLOUD_SERVICE_KEY
 $(error CLOUD_SERVICE_KEY unset)
 endif
-CLOUDSQL_SERVICE_KEY := $(shell echo "$CLOUD_SERVICE_KEY" | openssl enc -base64 -d -A)
 
 PROD_CLUSTER ?= planet4-production
 PROD_PROJECT ?= planet4-production
@@ -41,7 +40,7 @@ endif
 	@helm upgrade --install --force --wait $(RELEASE) \
 		--namespace=$(NAMESPACE) \
 		--version $(CHART_VERSION) \
-		--set serviceAccountKey=$(CLOUDSQL_SERVICE_KEY) \
+		--set serviceAccountKey=$(CLOUD_SERVICE_KEY) \
 		-f values.yaml \
 		-f env/dev/values.yaml \
 		$(CHART_NAME)
@@ -59,7 +58,7 @@ endif
 	@helm upgrade --install --force --wait $(RELEASE) \
 		--namespace=$(NAMESPACE) \
 		--version $(CHART_VERSION) \
-		--set serviceAccountKey=$(CLOUDSQL_SERVICE_KEY) \
+		--set serviceAccountKey=$(CLOUD_SERVICE_KEY) \
 		-f values.yaml \
 		-f env/prod/values.yaml \
 		$(CHART_NAME)
