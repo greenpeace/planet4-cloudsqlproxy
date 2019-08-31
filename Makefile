@@ -66,6 +66,7 @@ endif
 
 destroy:
 	helm delete --purge $(RELEASE)
+	-kubectl delete namespace $(NAMESPACE)
 
 history:
 	helm history $(RELEASE) --max=5
