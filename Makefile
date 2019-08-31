@@ -10,6 +10,12 @@ DEV_CLUSTER ?= p4-development
 DEV_PROJECT ?= jendevops1
 DEV_ZONE ?= australia-southeast1-c
 
+
+ifndef CLOUD_SERVICE_KEY
+$(error CLOUD_SERVICE_KEY unset)
+endif
+CLOUDSQL_SERVICE_KEY := $(shell echo "$CLOUD_SERVICE_KEY" | openssl enc -base64 -d)
+
 #PROD_CLUSTER ?= planet4-production
 #PROD_PROJECT ?= planet4-production
 #PROD_ZONE ?= us-central1-a
@@ -32,9 +38,10 @@ endif
 	gcloud config set project $(DEV_PROJECT)
 	gcloud container clusters get-credentials $(DEV_CLUSTER) --zone $(DEV_ZONE) --project $(DEV_PROJECT)
 	-kubectl create namespace $(NAMESPACE)
-	helm upgrade --install --force --wait $(RELEASE) \
+	@helm upgrade --install --force --wait $(RELEASE) \
 		--namespace=$(NAMESPACE) \
 		--version $(CHART_VERSION) \
+		--set serviceAccountKey=$(CLOUDSQL_SERVICE_KEY) \
 		-f values.yaml \
 		-f env/dev/values.yaml \
 		$(CHART_NAME)
