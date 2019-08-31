@@ -21,14 +21,13 @@ jobs:
   dev:
     <<: *defaults
     environment:
-      GOOGLE_PROJECT_ID: jendevops1
+      GOOGLE_PROJECT_ID: planet-4-151612
     steps:
       - checkout
       - run:
           name: Setup Google Cloud SDK
           command: |
-              echo $GCLOUD_SERVICE_KEY > ${HOME}/gsk.json
-              gcloud auth activate-service-account --key-file=${HOME}/gsk.json
+              activate-service-account.sh
       - deploy:
           name: Deploy to development cluster
           command: make dev | tee /tmp/deploy.log
@@ -45,6 +44,7 @@ jobs:
           TYPE="Deploy" \
           EXTRA_TEXT="\`\`\`$(make history)\`\`\`" \
           notify-job-success.sh
+
   prod:
     <<: *defaults
     environment:
