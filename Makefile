@@ -53,8 +53,6 @@ endif
 	gcloud config set project $(PROD_PROJECT)
 	gcloud container clusters get-credentials $(PROD_PROJECT) --zone $(PROD_ZONE) --project $(PROD_PROJECT)
 	-kubectl create namespace $(NAMESPACE)
-	helm repo add rimusz https://charts.rimusz.net
-	helm install -n $(RELEASE) $(CHART_NAME) --version $(CHART_VERSION) --namespace $(NAMESPACE)
 	@helm upgrade --install --force --wait $(RELEASE) \
 		--namespace=$(NAMESPACE) \
 		--version $(CHART_VERSION) \
