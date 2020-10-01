@@ -4,7 +4,7 @@ RELEASE := sqlproxy
 NAMESPACE := sqlproxy
 
 CHART_NAME := rimusz/gcloud-sqlproxy
-CHART_VERSION ?= 0.14.1
+CHART_VERSION ?= 0.19.12
 
 DEV_CLUSTER ?= p4-development
 DEV_PROJECT ?= planet-4-151612
