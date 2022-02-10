@@ -10,9 +10,9 @@ rbac:
   create: true
 
 topologySpreadConstraints:
-   - maxSkew: 1
-     topologyKey: kubernetes.io/hostname
-     whenUnsatisfiable: ScheduleAnyway
-     labelSelector:
-         app.kubernetes.io/instance: sqlproxy
-         app.kubernetes.io/name: gcloud-sqlproxy
+  - maxSkew: 1
+    topologyKey: kubernetes.io/hostname
+    whenUnsatisfiable: ScheduleAnyway
+    labelSelector:
+      app.kubernetes.io/instance: sqlproxy
+      app.kubernetes.io/name: gcloud-sqlproxy
