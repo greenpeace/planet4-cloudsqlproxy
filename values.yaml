@@ -1,10 +1,10 @@
 ---
-replicasCount: 3
+# replicasCount: 3
 
-autoscaling:
-  enabled: true
-  minReplicas: 3
-  maxReplicas: 10
+#autoscaling:
+#  enabled: true
+#  minReplicas: 3
+#  maxReplicas: 10
 
 rbac:
   create: true
