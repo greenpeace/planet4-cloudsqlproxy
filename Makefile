@@ -62,8 +62,8 @@ endif
 	$(MAKE) history
 
 destroy:
-	helm3 uninstall --purge $(RELEASE)
+	helm3 uninstall -n $(NAMESPACE) $(RELEASE)
 	-kubectl delete namespace $(NAMESPACE)
 
 history:
-	helm3 history $(RELEASE) --max=5
+	helm3 history $(RELEASE) -n $(NAMESPACE) --max=5
