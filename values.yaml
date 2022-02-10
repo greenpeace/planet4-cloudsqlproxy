@@ -14,5 +14,6 @@ topologySpreadConstraints:
     topologyKey: kubernetes.io/hostname
     whenUnsatisfiable: ScheduleAnyway
     labelSelector:
-      app.kubernetes.io/instance: sqlproxy
-      app.kubernetes.io/name: gcloud-sqlproxy
+      matchLabels:
+        app.kubernetes.io/instance: sqlproxy
+        app.kubernetes.io/name: gcloud-sqlproxy
