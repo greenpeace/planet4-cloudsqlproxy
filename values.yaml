@@ -1,10 +1,13 @@
 ---
-# replicasCount: 3
+autoscaling:
+  enabled: true
+  minReplicas: 3
+  maxReplicas: 10
 
-#autoscaling:
-#  enabled: true
-#  minReplicas: 3
-#  maxReplicas: 10
+resources:
+  requests:
+    cpu: 150m
+    memory: 100Mi
 
 rbac:
   create: true
