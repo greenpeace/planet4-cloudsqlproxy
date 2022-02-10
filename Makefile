@@ -26,9 +26,8 @@ lint:
 	@find . -type f -name '*.yaml' | xargs yamllint
 
 init:
-	helm init --client-only
-	helm repo add rimusz https://charts.rimusz.net
-	helm repo update
+	helm3 repo add rimusz https://charts.rimusz.net
+	helm3 repo update
 
 dev: lint init
 ifndef CI
@@ -37,7 +36,7 @@ endif
 	gcloud config set project $(DEV_PROJECT)
 	gcloud container clusters get-credentials $(DEV_CLUSTER) --zone $(DEV_ZONE) --project $(DEV_PROJECT)
 	-kubectl create namespace $(NAMESPACE)
-	@helm upgrade --install --force --wait $(RELEASE) \
+	helm3 upgrade --install $(RELEASE) \
 		--namespace=$(NAMESPACE) \
 		--version $(CHART_VERSION) \
 		--set serviceAccountKey=$(CLOUD_SERVICE_KEY) \
@@ -53,7 +52,7 @@ endif
 	gcloud config set project $(PROD_PROJECT)
 	gcloud container clusters get-credentials $(PROD_PROJECT) --zone $(PROD_ZONE) --project $(PROD_PROJECT)
 	-kubectl create namespace $(NAMESPACE)
-	@helm upgrade --install --force --wait $(RELEASE) \
+	helm3 upgrade --install $(RELEASE) \
 		--namespace=$(NAMESPACE) \
 		--version $(CHART_VERSION) \
 		--set serviceAccountKey=$(CLOUD_SERVICE_KEY) \
@@ -63,8 +62,8 @@ endif
 	$(MAKE) history
 
 destroy:
-	helm delete --purge $(RELEASE)
+	helm3 uninstall --purge $(RELEASE)
 	-kubectl delete namespace $(NAMESPACE)
 
 history:
-	helm history $(RELEASE) --max=5
+	helm3 history $(RELEASE) --max=5
