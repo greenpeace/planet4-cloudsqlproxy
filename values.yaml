@@ -20,3 +20,6 @@ topologySpreadConstraints:
       matchLabels:
         app.kubernetes.io/instance: sqlproxy
         app.kubernetes.io/name: gcloud-sqlproxy
+
+podDisruptionBudget: |
+  maxUnavailable: 0
