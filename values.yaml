@@ -1,8 +1,9 @@
 ---
+
+replicasCount: 3
+
 autoscaling:
-  enabled: true
-  minReplicas: 3
-  maxReplicas: 10
+  enabled: false
 
 resources:
   requests:
@@ -20,3 +21,6 @@ topologySpreadConstraints:
       matchLabels:
         app.kubernetes.io/instance: sqlproxy
         app.kubernetes.io/name: gcloud-sqlproxy
+
+podDisruptionBudget: |
+  maxUnavailable: 0
